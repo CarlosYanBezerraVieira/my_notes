@@ -1,16 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'firebase_options.dart';
+import '../firebase_options.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LoginPageState extends State<LoginPage> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -69,16 +69,26 @@ class _HomePageState extends State<HomePage> {
                           final email = _email.text;
                           final password = _password.text;
 
-                          final userCredential = await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                            email: email,
-                            password: password,
-                          );
-                          setState(() {});
-                          print(userCredential);
+                          try {
+                            final userCredential = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: email,
+                              password: password,
+                            );
+                            print(userCredential);
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'user-not-found') {
+                              print('Usuário não encontrado');
+                            } else if (e.code == 'wrong-password') {
+                              print('Senha incorreta');
+                            } else {
+                              print('ERRO');
+                              print(e.code);
+                            }
+                          }
                         },
                         child: const Text(
-                          "Cadastra-se",
+                          "Login",
                           style: TextStyle(
                             color: Colors.black45,
                             decoration: TextDecoration.underline,
