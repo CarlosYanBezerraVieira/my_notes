@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mynotes/pages/login_page.dart';
+import 'package:mynotes/app_widget.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MaterialApp(
-    home: LoginPage(),
+    home: AppWidget(),
   ));
 }
