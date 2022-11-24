@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -31,10 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         backgroundColor: Colors.indigo[50],
         appBar: AppBar(
-          elevation: 1,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(bottomRight: Radius.circular(30)),
-          ),
+          shadowColor: Colors.transparent,
           centerTitle: true,
           title: const Text(
             "Login",

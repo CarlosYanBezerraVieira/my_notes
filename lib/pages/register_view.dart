@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class RegisterView extends StatefulWidget {
+  const RegisterView({Key? key}) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterViewState extends State<RegisterView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -31,15 +31,12 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Colors.indigo[50],
       appBar: AppBar(
-        elevation: 1,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(30)),
-        ),
         centerTitle: true,
         title: const Text(
           "Cadastro",
           style: TextStyle(color: Colors.black54),
         ),
+        shadowColor: Colors.transparent,
         backgroundColor: Colors.yellow[50],
       ),
       body: Padding(

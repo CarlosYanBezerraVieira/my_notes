@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mynotes/pages/login_page.dart';
+import 'package:mynotes/pages/login_view.dart';
+import 'package:mynotes/pages/notes_view.dart';
 import 'package:mynotes/verify_email.dart';
 
-import 'firebase_options.dart';
+import '../firebase_options.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -20,14 +21,13 @@ class AppWidget extends StatelessWidget {
             final user = FirebaseAuth.instance.currentUser;
             if (user != null) {
               if (user.emailVerified) {
-                print('email verificado');
+                return const NotesView();
               } else {
                 return const VerifyEmail();
               }
             } else {
-              return LoginPage();
+              return const LoginView();
             }
-            return Text('done');
 
           default:
             return const Center(child: CircularProgressIndicator());
