@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mynotes/app_widget.dart';
-import 'package:mynotes/pages/login_page.dart';
-import 'package:mynotes/pages/register_page.dart';
+import 'package:mynotes/core/app_widget.dart';
+import 'package:mynotes/pages/login_view.dart';
+import 'package:mynotes/pages/register_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     home: const AppWidget(),
     routes: {
-      "/login/": (context) => const LoginPage(),
-      "/register/": (context) => const RegisterPage(),
+      "/login/": (context) => const LoginView(),
+      "/register/": (context) => const RegisterView(),
     },
   ));
 }
