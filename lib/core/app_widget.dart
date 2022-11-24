@@ -30,7 +30,9 @@ class AppWidget extends StatelessWidget {
             }
 
           default:
-            return const Center(child: CircularProgressIndicator());
+            return const Material(
+                color: Colors.white,
+                child: Center(child: CircularProgressIndicator()));
         }
       },
     );
