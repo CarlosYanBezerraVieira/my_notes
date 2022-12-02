@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<bool> showLogOutDialog(BuildContext context, String textErro) async {
+Future<bool> showErroDialog(BuildContext context, String textErro) async {
   return await showDialog<bool>(
     context: context,
     builder: (context) {
