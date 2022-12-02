@@ -1,8 +1,7 @@
-import 'dart:developer' as devtools show log;
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynotes/core/routes/routes.dart';
+import 'package:mynotes/core/utils/show_dialog_erro.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -83,23 +82,25 @@ class _RegisterViewState extends State<RegisterView> {
                           final password = _password.text;
 
                           try {
-                            final userCredential = await FirebaseAuth.instance
+                            await FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
                               email: email,
                               password: password,
                             );
-                            devtools.log(userCredential.toString());
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
-                              devtools.log('Senha muito fraca');
+                              await showErroDialog(
+                                  context, 'Senha muito fraca');
                             } else if (e.code == 'email-already-in-use') {
-                              devtools.log('O email já está sendo usado');
+                              await showErroDialog(
+                                  context, 'O email já está sendo usado');
                             } else if (e.code == 'invalid-email') {
-                              devtools.log('Email inválido');
+                              await showErroDialog(context, 'Email inválido');
                             } else {
-                              devtools.log("ERRO");
-                              devtools.log(e.code);
+                              await showErroDialog(context, e.code);
                             }
+                          } catch (e) {
+                            await showErroDialog(context, e.toString());
                           }
                         },
                         child: const Text(
