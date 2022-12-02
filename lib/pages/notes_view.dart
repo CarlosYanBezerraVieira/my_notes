@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynotes/core/routes/routes.dart';
@@ -36,9 +38,12 @@ class _NotesViewState extends State<NotesView> {
                   final shouldLogout = await showLogOutDialog(context);
                   if (shouldLogout) {
                     await FirebaseAuth.instance.signOut();
-                    // ignore: use_build_context_synchronously
+                    if (!mounted) {
+                      log('erro no mounted');
+                      return;
+                    }
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil(login, (_) => false);
+                        .pushNamedAndRemoveUntil(loginRoute, (_) => false);
                   }
               }
             },

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynotes/core/routes/routes.dart';
@@ -87,6 +89,13 @@ class _RegisterViewState extends State<RegisterView> {
                               email: email,
                               password: password,
                             );
+                            final user = FirebaseAuth.instance.currentUser;
+                            await user?.sendEmailVerification();
+                            if (!mounted) {
+                              log('erro no mounted');
+                              return;
+                            }
+                            Navigator.of(context).pushNamed(verifyEmailRoute);
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
                               await showErroDialog(
@@ -130,8 +139,8 @@ class _RegisterViewState extends State<RegisterView> {
                           padding: MaterialStateProperty.all(EdgeInsets.zero),
                         ),
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushNamedAndRemoveUntil(login, (route) => false);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              loginRoute, (route) => false);
                         },
                         child: const Text(
                           "Fazer login",

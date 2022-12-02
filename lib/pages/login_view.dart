@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mynotes/core/routes/routes.dart';
@@ -89,9 +91,12 @@ class _LoginViewState extends State<LoginView> {
                                 password: password,
                               );
 
-                              // ignore: use_build_context_synchronously
+                              if (!mounted) {
+                                log('erro no mounted');
+                                return;
+                              }
                               Navigator.of(context).pushNamedAndRemoveUntil(
-                                  notes, (route) => false);
+                                  notesRoute, (route) => false);
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'user-not-found') {
                                 await showErroDialog(
@@ -134,7 +139,7 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           onPressed: () {
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                                register, (route) => false);
+                                registerRoute, (route) => false);
                           },
                           child: const Text(
                             "Cadastra-se",
